@@ -61,7 +61,8 @@ pub mod gcp_chronicle;
 pub mod gcs_common;
 #[cfg(any(
     feature = "sinks-greptimedb_metrics",
-    feature = "sinks-greptimedb_logs"
+    feature = "sinks-greptimedb_logs",
+    feature = "sinks-greptimedb_wide_metrics"
 ))]
 pub mod greptimedb;
 #[cfg(feature = "sinks-honeycomb")]

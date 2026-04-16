@@ -3,6 +3,7 @@ use crate::sinks::prelude::*;
 // sub level implementations
 mod logs;
 mod metrics;
+mod wide_metrics;
 
 fn default_dbname() -> String {
     greptimedb_ingester::DEFAULT_SCHEMA_NAME.to_string()
