@@ -35,7 +35,11 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y protobuf-compiler libclang-dev libsasl2-dev
+          sudo apt-get install -y libclang-dev libsasl2-dev unzip curl
+          curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v24.4/protoc-24.4-linux-x86_64.zip
+          sudo unzip protoc-24.4-linux-x86_64.zip -d /usr/local
+          rm protoc-24.4-linux-x86_64.zip
+          protoc --version
 
       - name: Build release binary
         run: >-
