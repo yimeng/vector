@@ -29,13 +29,18 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@1.92
 
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler libclang-dev libsasl2-dev
 
       - name: Build release binary
-        run: cargo build --release
+        run: >-
+          cargo build --release --no-default-features
+          --features "api,unix,vrl/stdlib,sinks-greptimedb_wide_metrics,sinks-greptimedb_metrics,sinks-greptimedb_logs,sources-opentelemetry,transforms-remap,sinks-blackhole,sinks-console"
 
       - name: Strip binary
         run: strip target/release/vector
