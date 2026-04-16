@@ -2,7 +2,7 @@ use std::{sync::Arc, task::Poll};
 
 use greptimedb_ingester::{
     Client, ClientBuilder, Compression, Database, Error as GreptimeError,
-    api::v1::{auth_header::AuthScheme::Basic, *},
+    api::v1::{auth_header::AuthScheme, *},
     channel_manager::*,
 };
 use vector_lib::sensitive_string::SensitiveString;
@@ -76,12 +76,10 @@ impl GreptimeDBGrpcService {
         let mut client = Database::new_with_dbname(&config.dbname, grpc_client);
 
         if let (Some(username), Some(password)) = (&config.username, &config.password) {
-            client.set_auth(
-                greptimedb_ingester::api::v1::auth_header::AuthScheme::Basic(Basic {
-                    username: username.to_owned(),
-                    password: password.clone().into(),
-                }),
-            )
+            client.set_auth(AuthScheme::Basic(Basic {
+                username: username.to_owned(),
+                password: password.clone().into(),
+            }))
         };
 
         Ok(GreptimeDBGrpcService {

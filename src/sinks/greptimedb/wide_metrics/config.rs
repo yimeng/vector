@@ -14,10 +14,7 @@ use crate::sinks::{
 };
 
 /// Configuration items for GreptimeDB wide-metrics sink
-#[configurable_component(sink(
-    "greptimedb_wide_metrics",
-    "Ingest metrics data into GreptimeDB using a wide-table schema."
-))]
+#[configurable_component(sink("greptimedb_wide_metrics", "Ingest metrics data into GreptimeDB using a wide-table schema."))]
 #[derive(Clone, Debug, Derivative)]
 #[derivative(Default)]
 #[serde(deny_unknown_fields)]
@@ -69,12 +66,12 @@ pub struct GreptimeDBWideMetricsConfig {
     pub new_naming: Option<bool>,
 
     /// Tag keys to keep as string TAGs instead of converting to fields.
-    #[configurable(metadata(docs::examples = ["task_instance_id", "service_name"]))]
+    #[configurable(metadata(docs::examples = "task_instance_id"))]
     #[serde(default)]
     pub tag_columns: Vec<String>,
 
     /// Regex patterns for tag keys to keep as string TAGs.
-    #[configurable(metadata(docs::examples = ["^resource\\.service\\..*"]))]
+    #[configurable(metadata(docs::examples = "^resource\\.service\\..*"))]
     #[serde(default)]
     pub tag_column_patterns: Vec<String>,
 
